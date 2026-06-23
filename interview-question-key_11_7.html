@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>면접 질문 KEY</title>
+<style>
+  :root{
+    --bg:#fafaf9; --card:#fff; --line:#e7e5e4; --line-soft:#f5f5f4;
+    --ink:#1c1917; --ink700:#44403c; --ink500:#78716c; --ink400:#a8a29e;
+    --em:#059669; --em700:#047857; --em50:#ecfdf5; --em100:#d1fae5; --em200:#a7f3d0;
+    --red:#dc2626; --red500:#ef4444; --red50:#fef2f2; --red100:#fee2e2; --red200:#fecaca; --red700:#b91c1c;
+    --amber50:#fffbeb; --amber600:#d97706; --amber200:#fde68a; --amber700:#b45309;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink);
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',-apple-system,BlinkMacSystemFont,sans-serif;
+    -webkit-font-smoothing:antialiased; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:34px 20px 48px; }
+  .head h1{ font-size:24px; font-weight:800; letter-spacing:-0.02em; margin:0; }
+  .head p{ margin:5px 0 0; font-size:14px; color:var(--ink500); }
+  .grid{ display:grid; grid-template-columns:1fr; gap:22px; margin-top:26px; }
+  @media(min-width:960px){ .grid{ grid-template-columns:2fr 1fr; align-items:start; } }
+  .colL{ display:flex; flex-direction:column; gap:22px; min-width:0; }
+  .colR{ display:flex; flex-direction:column; gap:22px; min-width:0; }
+
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:16px;
+    box-shadow:0 1px 2px rgba(0,0,0,0.04); overflow:hidden; }
+  .pad{ padding:20px; }
+  .cardhead{ padding:20px; border-bottom:1px solid var(--line-soft); }
+  .titlerow{ display:flex; align-items:center; gap:8px; }
+  .titlerow h2{ font-size:16px; font-weight:700; margin:0; }
+  .titlerow .sub{ font-size:13.5px; color:var(--ink400); }
+  .ic{ color:var(--em700); display:inline-flex; }
+
+  .pill{ margin-left:auto; border-radius:999px; padding:3px 11px; font-size:12px; font-weight:700;
+    display:none; align-items:center; }
+  .pill-ok{ background:var(--em50); color:var(--em700); box-shadow:inset 0 0 0 1px var(--em200); }
+  .pill-bad{ background:var(--red50); color:var(--red); box-shadow:inset 0 0 0 1px var(--red200); }
+
+  textarea{ width:100%; resize:none; border:1px solid var(--line); background:#fafaf9; border-radius:12px;
+    padding:14px; font:inherit; font-size:15px; line-height:1.6; color:var(--ink); outline:none; transition:.15s; }
+  textarea::placeholder{ color:var(--ink400); }
+  textarea:focus{ border-color:var(--em); background:#fff; box-shadow:0 0 0 3px var(--em100); }
+
+  .mic{ display:inline-flex; align-items:center; gap:7px; border:1px solid var(--line); background:#fff;
+    color:var(--ink500); cursor:pointer; font:inherit; font-size:12.5px; font-weight:600; padding:7px 13px;
+    border-radius:999px; transition:.15s; }
+  .mic:hover{ background:#fafaf9; color:var(--ink); }
+  .mic svg{ width:14px; height:14px; }
+  .mic.live{ background:var(--red50); color:var(--red); border-color:var(--red200); animation:pulse 1.3s infinite; }
+  .mic[disabled]{ opacity:.5; cursor:default; }
+  @keyframes pulse{ 0%,100%{opacity:1} 50%{opacity:.45} }
+
+  .chips{ margin-top:13px; display:flex; flex-direction:column; gap:9px; }
+  .chiprow{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+  .chiplbl{ width:46px; flex-shrink:0; font-size:12px; font-weight:700; }
+  .chiplbl.best{ color:var(--em); } .chiplbl.worst{ color:var(--red500); }
+  .chip{ border-radius:999px; padding:5px 12px; font-size:12px; font-weight:600; cursor:pointer; font-family:inherit; transition:.15s; }
+  .chip.best{ border:1px solid var(--em200); background:var(--em50); color:var(--em700); }
+  .chip.best:hover{ background:var(--em100); }
+  .chip.worst{ border:1px solid var(--red200); background:var(--red50); color:var(--red); }
+  .chip.worst:hover{ background:var(--red100); }
+
+  .split{ display:grid; grid-template-columns:1fr; }
+  @media(min-width:560px){ .split{ grid-template-columns:1fr 1fr; } }
+  .pane{ padding:20px; }
+  .pane.before{ border-bottom:1px solid var(--line-soft); }
+  @media(min-width:560px){ .pane.before{ border-bottom:none; border-right:1px solid var(--line-soft); } }
+  .pane.after{ background:var(--em50); }
+  .eyebrow{ font-size:11px; letter-spacing:0.1em; text-transform:uppercase; font-weight:700; margin-bottom:12px;
+    display:flex; align-items:center; gap:6px; }
+  .eyebrow.red{ color:var(--red500); } .eyebrow.em{ color:var(--em700); } .eyebrow.stone{ color:var(--ink400); }
+  .q-text{ margin:0; font-size:15px; line-height:1.95; color:var(--ink); word-break:keep-all; }
+  .q-text.strong{ font-weight:600; }
+  mark.hl{ background:var(--red100); color:var(--red700); border-radius:4px; padding:0 2px; font-weight:700;
+    text-decoration:underline; text-decoration-color:var(--red200); text-decoration-thickness:2px; text-underline-offset:2px; }
+  .muted{ margin:0; font-size:14px; line-height:1.7; color:var(--ink400); }
+  .tags{ margin-top:13px; padding-top:13px; border-top:1px dashed var(--line); display:flex; flex-wrap:wrap; gap:6px; }
+  .tag-bad{ background:var(--red50); color:var(--red); border-radius:7px; padding:2px 8px; font-size:12px; font-weight:600; }
+  .ok-line{ display:flex; gap:8px; align-items:flex-start; font-size:15px; line-height:1.9; color:var(--ink500); }
+  .ok-line .ck{ color:var(--em); font-weight:800; }
+  .mt{ margin-top:14px; } .right{ display:flex; justify-content:flex-end; }
+
+  .copy{ display:inline-flex; align-items:center; gap:5px; border:1px solid var(--line); background:transparent;
+    color:var(--ink500); cursor:pointer; font:inherit; font-size:12px; font-weight:600; padding:5px 11px;
+    border-radius:8px; transition:.15s; }
+  .copy:hover{ background:#fafaf9; color:var(--ink); }
+  .copy.done{ background:var(--em); color:#fff; border-color:var(--em); }
+
+  .depth{ display:inline-flex; align-items:center; gap:8px; border-radius:999px; padding:5px 13px; font-size:12px;
+    font-weight:700; margin-bottom:16px; }
+  .depth.ok{ background:var(--em50); color:var(--em700); box-shadow:inset 0 0 0 1px var(--em200); }
+  .depth.warn{ background:var(--amber50); color:var(--amber700); box-shadow:inset 0 0 0 1px var(--amber200); }
+  .depth .dot{ width:6px; height:6px; border-radius:50%; }
+  .depth.ok .dot{ background:var(--em); } .depth.warn .dot{ background:var(--amber600); }
+
+  .qlist{ display:flex; flex-direction:column; gap:10px; }
+  .qitem{ display:flex; align-items:flex-start; gap:12px; border:1px solid var(--line); background:#fff;
+    border-radius:12px; padding:14px; transition:.15s; }
+  .qitem:hover{ border-color:var(--em200); }
+  .qno{ font-family:Georgia,'Times New Roman',serif; font-size:17px; font-weight:600; color:var(--em); flex-shrink:0; line-height:1.4; }
+  .qno.amber{ color:var(--amber600); }
+  .qitem p{ margin:0; flex:1; font-size:14px; line-height:1.6; color:var(--ink700); }
+
+  /* rail */
+  .railhead{ display:flex; align-items:center; gap:10px; }
+  .railhead .badge{ width:32px; height:32px; border-radius:9px; background:var(--em);
+    display:flex; align-items:center; justify-content:center; color:#fff; flex-shrink:0; }
+  .railhead h2{ font-size:14px; font-weight:700; margin:0; }
+  .railhead p{ font-size:12px; color:var(--ink400); margin:2px 0 0; }
+  .tabs{ display:flex; gap:4px; background:var(--line-soft); padding:4px; border-radius:10px; margin-top:13px; }
+  .tab{ flex:1; border:none; background:transparent; cursor:pointer; font:inherit; font-size:12px; font-weight:700;
+    color:var(--ink500); padding:7px 4px; border-radius:7px; transition:.15s; }
+  .tab.active{ background:#fff; color:var(--em700); box-shadow:0 1px 2px rgba(0,0,0,0.06); }
+  .crit-desc{ font-size:12px; line-height:1.6; color:var(--ink500); margin-bottom:13px; }
+  .crit-list{ display:flex; flex-direction:column; gap:9px; }
+  .crit-q{ display:block; width:100%; text-align:left; border:1px solid var(--line); background:#fff;
+    border-radius:12px; padding:12px; font:inherit; font-size:13.5px; line-height:1.55; color:var(--ink700);
+    cursor:pointer; transition:.15s; }
+  .crit-q:hover{ border-color:var(--em200); background:var(--em50); }
+
+  .deep-card{ border:1px solid var(--line); background:#fff; border-radius:12px; padding:14px; transition:.15s; }
+  .deep-card:hover{ border-color:var(--em200); }
+  .deep-no{ display:flex; align-items:center; gap:6px; font-size:12px; font-weight:700; color:var(--em700); margin-bottom:7px; }
+  .deep-card p{ margin:0; font-size:13.5px; line-height:1.6; color:var(--ink700); }
+  .rail-empty{ border-radius:12px; background:#fafaf9; padding:20px; text-align:center; font-size:13.5px; line-height:1.7; color:var(--ink400); }
+
+  /* 자기소개서 검토 (최상단) */
+  .cover-card{ margin-top:26px; }
+  .ex-row{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:13px; }
+  .ex-lbl{ font-size:12px; font-weight:700; color:var(--ink500); margin-right:2px; }
+  .ex-btn{ border:1px solid var(--em200); background:var(--em50); color:var(--em700);
+    border-radius:999px; padding:6px 14px; font:inherit; font-size:12.5px; font-weight:700; cursor:pointer; transition:.15s; }
+  .ex-btn:hover{ background:var(--em100); }
+  .ex-btn.on{ background:var(--em); color:#fff; border-color:var(--em); }
+  .ex-clear{ margin-left:auto; border:1px solid var(--line); background:#fff; color:var(--ink400);
+    border-radius:999px; padding:6px 12px; font:inherit; font-size:12px; font-weight:600; cursor:pointer; transition:.15s; }
+  .ex-clear:hover{ background:#fafaf9; color:var(--ink700); }
+  .cv-pt{ display:flex; gap:8px; align-items:flex-start; font-size:13.5px; line-height:1.6; color:var(--ink700);
+    border:1px solid var(--red200); background:var(--red50); border-radius:10px; padding:9px 11px; margin-bottom:8px; }
+  .cv-pt .dotx{ color:var(--red500); font-weight:800; flex-shrink:0; }
+  .cv-q{ border:1px solid var(--line); background:#fff; border-radius:12px; padding:12px 13px; margin-bottom:10px; }
+  .cv-q p{ margin:0 0 9px; font-size:13.5px; line-height:1.6; color:var(--ink); }
+  .cv-q .row{ display:flex; gap:7px; flex-wrap:wrap; }
+  .use-btn{ display:inline-flex; align-items:center; gap:5px; border:1px solid var(--em); background:var(--em);
+    color:#fff; cursor:pointer; font:inherit; font-size:12px; font-weight:700; padding:6px 12px; border-radius:8px; transition:.15s; }
+  .use-btn:hover{ background:var(--em700); border-color:var(--em700); }
+  .flow-link{ text-align:center; font-size:12.5px; font-weight:600; color:var(--em700); padding:13px; border-top:1px solid var(--line-soft); }
+
+  .covrow{ display:flex; flex-wrap:wrap; gap:6px; margin:-4px 0 14px; }
+  .cov{ border-radius:7px; padding:3px 9px; font-size:12px; font-weight:700; }
+  .cov.ok{ background:var(--em50); color:var(--em700); box-shadow:inset 0 0 0 1px var(--em200); }
+  .cov.no{ background:var(--red50); color:var(--red); box-shadow:inset 0 0 0 1px var(--red200); }
+
+  .cv-cat{ flex-shrink:0; align-self:flex-start; font-size:11px; font-weight:800; color:var(--red700);
+    background:var(--red100); border-radius:6px; padding:2px 7px; margin-right:2px; white-space:nowrap; }
+  .cv-meter{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; border-radius:10px; padding:8px 12px; margin-bottom:13px;
+    font-size:12.5px; font-weight:700; }
+  .cv-meter.ok{ background:var(--em50); color:var(--em700); box-shadow:inset 0 0 0 1px var(--em200); }
+  .cv-meter.mid{ background:var(--amber50); color:var(--amber700); box-shadow:inset 0 0 0 1px var(--amber200); }
+  .cv-meter.low{ background:var(--red50); color:var(--red); box-shadow:inset 0 0 0 1px var(--red200); }
+  .cv-meter .cv-num{ margin-left:auto; font-weight:600; opacity:.85; font-size:11.5px; }
+
+  .foot{ margin-top:32px; text-align:center; font-size:12px; color:var(--ink400); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <h1>면접 질문 KEY</h1>
+    <p>자소서에서 물어볼 질문을 뽑고, 질문을 점검한 뒤, 답변에서 무엇을 더 확인할지 짚어 드립니다.</p>
+  </div>
+
+  <!-- ⓪ 자기소개서 검토 (최상단) -->
+  <section class="card cover-card">
+    <div class="cardhead">
+      <div class="titlerow">
+        <span class="ic">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h8"/><path d="M8 9h2"/></svg>
+        </span>
+        <h2>자기소개서 검토</h2>
+        <span class="sub">자소서를 붙여넣으면 확인할 포인트와 물어볼 질문을 짚어 드립니다</span>
+        <span class="pill" id="cStatus"></span>
+      </div>
+      <div class="ex-row">
+        <span class="ex-lbl">예시 자소서</span>
+        <button class="ex-btn" type="button" data-ex="dev">개발직군</button>
+        <button class="ex-btn" type="button" data-ex="sales">영업직군</button>
+        <button class="ex-btn" type="button" data-ex="support">지원직군</button>
+        <button class="ex-clear" id="cClear" type="button">지우기</button>
+      </div>
+      <textarea id="cInput" rows="7" style="margin-top:11px;" placeholder="지원자의 자기소개서를 붙여넣으세요. 위 예시 버튼을 누르면 직군별 샘플 자소서를 불러올 수 있습니다."></textarea>
+    </div>
+    <div class="split">
+      <div class="pane before">
+        <div class="eyebrow red">▲ 되물어 확인할 표현 (빨간 부분)</div>
+        <div id="cPoints"><p class="muted">자소서를 입력하면 추상적·과장된 표현을 빨갛게 강조해 표시합니다. 오른쪽엔 곧바로 물어볼 질문이 나옵니다.</p></div>
+      </div>
+      <div class="pane after">
+        <div class="eyebrow em">→ 자소서 기반 추천 질문</div>
+        <div id="cQuestions"><p class="muted">자소서 내용에서 곧바로 물어볼 수 있는 질문을 만들어 드립니다. 질문 옆 버튼을 누르면 아래 ‘질문 검토’로 넘어갑니다.</p></div>
+      </div>
+    </div>
+    <div class="flow-link">↓ 추천 질문을 아래 ‘질문 검토’에서 다듬고, 답변까지 이어서 검토하세요</div>
+  </section>
+
+  <div class="grid">
+    <!-- 왼쪽: 질문 박스 + 답변 분석 박스 -->
+    <div class="colL">
+      <!-- ① 질문 검토 -->
+      <section class="card" id="qCard">
+        <div class="cardhead">
+          <div class="titlerow">
+            <span class="ic">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            </span>
+            <h2>질문 검토</h2>
+            <span class="sub">물어볼 질문이 적절한지 점검합니다</span>
+            <span class="pill" id="qStatus"></span>
+          </div>
+          <textarea id="qInput" rows="2" placeholder="후보자에게 물어볼 질문을 입력하세요. (입력하면 실시간으로 교정됩니다)"></textarea>
+          <div style="margin-top:11px;">
+            <button class="mic" id="qMic" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+              <span class="lbl">음성 입력</span>
+            </button>
+          </div>
+          <div class="chips">
+            <div class="chiprow"><span class="chiplbl best">베스트</span><span id="bestChips"></span></div>
+            <div class="chiprow"><span class="chiplbl worst">워스트</span><span id="worstChips"></span></div>
+          </div>
+        </div>
+        <div class="split">
+          <div class="pane before">
+            <div class="eyebrow red">▲ 검토 전 · 원문</div>
+            <div id="leftPanel"><p class="muted">왼쪽에 질문을 입력하면 교정이 필요한 표현이 빨갛게 표시됩니다.</p></div>
+            <div id="issueTags"></div>
+          </div>
+          <div class="pane after">
+            <div class="eyebrow em">→ 교정 후 · 결과</div>
+            <div id="rightPanel"><p class="muted">교정된 질문이 여기에 실시간으로 나타납니다.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ② 답변 분석 -->
+      <section class="card">
+        <div class="cardhead">
+          <div class="titlerow">
+            <span class="ic">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg>
+            </span>
+            <h2>답변 분석</h2>
+            <span class="sub">답변을 읽고 구성(행동·결과·수치)을 진단해 이어 물을 질문을 짚어 줍니다</span>
+          </div>
+          <textarea id="aInput" rows="3" placeholder="지원자가 한 답변을 그대로 붙여넣으세요."></textarea>
+        </div>
+        <div class="pad" id="aResult">
+          <p class="muted">지원자의 답변을 붙여넣으면 구성(행동·결과·수치)을 진단하고, 그 답변에서 곧바로 이어 물을 후속 질문을 정리해 드립니다.</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- 오른쪽: 평가 기준별 질문 -->
+    <div class="colR">
+      <section class="card">
+        <div class="cardhead">
+          <h2 style="font-size:14px;margin:0;">평가 기준별 질문</h2>
+          <p style="font-size:12px;color:var(--ink400);margin:4px 0 0;">기준을 골라 검증된 개방형 질문을 가져다 쓰세요.</p>
+          <div class="tabs" id="critTabs"></div>
+        </div>
+        <div class="pad">
+          <p class="crit-desc" id="critDesc"></p>
+          <div class="crit-list" id="critList"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="foot">채용절차법·면접 가이드 기준의 표현 패턴으로 점검하며, 최종 판단은 면접관의 몫입니다.</div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- 예시용 룰 엔진 (실제 서비스에선 검출 엔진/서버로 교체) ---------- */
+  var PATTERNS = [
+    { re:/고향|출신지|본적/g, type:"차별·부적절",
+      note:"출신지·고향은 직무 평가와 무관해 묻지 않습니다.",
+      fix:"근무 가능 지역이나 출퇴근에 제약이 있으신가요?" },
+    { re:/부모|아버지|어머니|집안|가정환경|형제|자매/g, type:"차별·부적절",
+      note:"가족·집안 배경은 평가 대상이 아닙니다.",
+      fix:"이 일을 길게 이어가는 데 미리 알아두어야 할 제약이 있으신가요?" },
+    { re:/결혼|임신|출산|남자친구|여자친구|애인/g, type:"차별·부적절",
+      note:"결혼·임신·출산·연애 여부는 묻지 않습니다.",
+      fix:"이 직무를 장기적으로 이어갈 의향이 있으신가요? 근무 조건 중 미리 맞춰야 할 부분이 있다면 말씀해 주세요." },
+    { re:/나이가?\s*(어리|어린|많|드|지긋|있으)|몇\s*살|연세|나이대/g, type:"차별·부적절",
+      note:"나이는 평가 대상이 아닙니다.",
+      fix:"이 직무에 필요한 경험을 어디까지 해보셨는지 사례로 말씀해 주세요." },
+    { re:/잘못\s*대답|잘\s*모르(는|시는)|틀렸|아닌데/g, type:"무례·갑질",
+      note:"면박·훈계 표현이 섞여 있습니다. 답을 끌어내려면 추궁이 아니라 확인 질문이 낫습니다.",
+      fix:"제가 정확히 이해했는지 확인하고 싶습니다. 그렇게 판단하신 근거를 조금 더 설명해 주시겠어요?" },
+    { re:/mbti|혈액형|별자리/gi, type:"변별력 낮음",
+      note:"성향 검사 결과는 직무 변별력이 낮습니다.",
+      fix:"본인의 성향이 실제 업무에서 어떻게 드러났는지 사례로 말씀해 주세요." }
+  ];
+  var THEMES = [
+    { re:/갈등|의견|동료|부딪|마찰/,
+      fix:"동료와 의견이 부딪혔던 상황에서, 본인이 실제로 어떻게 풀었고 결과가 어땠는지 사례로 말씀해 주세요.",
+      deep:"그때 상대를 설득하기 위해 구체적으로 어떤 말이나 행동을 하셨나요?" },
+    { re:/강점|장점|역량|잘하는/,
+      fix:"지원 직무에 도움이 될 강점을, 그 강점이 성과로 이어졌던 최근 사례와 함께 말씀해 주세요.",
+      deep:"그 강점이 없었다면 결과가 어떻게 달라졌을 거라고 보시나요?" },
+    { re:/야근|마감|바쁠|업무량|우선순위/,
+      fix:"업무가 한꺼번에 몰렸을 때 무엇을 먼저 처리했고 어떻게 행동했는지 구체적 사례로 말씀해 주세요.",
+      deep:"우선순위를 그렇게 정한 기준은 무엇이었나요?" },
+    { re:/실패|약점|단점|어려|아쉬/,
+      fix:"기대만큼 안 풀렸던 일과, 그 경험에서 이후 무엇을 바꾸셨는지 말씀해 주세요.",
+      deep:"같은 상황이 다시 온다면 무엇을 가장 먼저 다르게 하시겠어요?" }
+  ];
+  var PROBES = [
+    "그 상황에서 본인이 직접 한 행동은 구체적으로 무엇이었나요? 다른 사람이 한 일과 구분해 주세요.",
+    "그렇게 판단하거나 결정한 근거와 기준은 무엇이었나요?",
+    "결과를 가능한 한 수치나 사실로 말씀해 주실 수 있나요?"
+  ];
+  var CRITERIA = {
+    "동기적합성":{ desc:"지원 동기가 회사·직무에 대한 구체적 이해에서 나오는지, 조건이 아니라 일 자체에 대한 동기인지 확인합니다.",
+      qs:[ "여러 회사 중 저희에 지원하기까지, 직접 알아보거나 경험한 것 중 결정적이었던 계기는 무엇이었나요?",
+           "이 직무를 준비하면서 실제로 해 본 활동이 있다면 무엇이고, 무엇을 배우셨나요?",
+           "입사 후 1년 안에 이뤄보고 싶은 일과, 그렇게 생각한 이유를 말씀해 주세요." ] },
+    "조직적합성":{ desc:"팀·동료와 협업하는 방식, 갈등을 다루는 태도가 조직과 잘 맞는지 확인합니다.",
+      qs:[ "함께 일하기 어려운 동료와 한 가지 목표를 끝까지 해낸 경험이 있나요? 본인은 어떻게 행동하셨나요?",
+           "팀의 방식과 본인의 방식이 달랐을 때, 어떻게 맞춰 가셨는지 사례로 말씀해 주세요.",
+           "동료의 피드백을 듣고 일하는 방식을 실제로 바꾼 경험이 있다면 들려주세요." ] },
+    "직무역량":{ desc:"직무에 필요한 실제 능력을 과거 성과와 행동 사례로 검증합니다.",
+      qs:[ "최근 맡은 일 중 가장 도전적이었던 과제에서, 본인이 무엇을 했고 결과가 어땠는지 말씀해 주세요.",
+           "기존 방식을 개선해 눈에 띄는 변화를 만든 경험이 있다면, 무엇을 바꾸셨는지 구체적으로 말씀해 주세요.",
+           "어려운 문제의 원인을 끝까지 확인해 해결한 사례를 하나 들려주세요." ] }
+  };
+  var EXAMPLES = {
+    best:[
+      { label:"갈등 해결 (행동 기반)", q:"최근 1~2년 안에 동료와 의견이 강하게 부딪혔던 상황이 있었나요? 그때 본인이 실제로 어떻게 풀었고, 결과가 어땠는지 말씀해 주세요." },
+      { label:"직무 강점 + 사례", q:"지원하신 직무와 가장 관련 있는 본인의 강점을, 그 강점이 성과로 이어졌던 구체적인 사례와 함께 말씀해 주세요." }
+    ],
+    worst:[
+      { label:"출신·가족 (차별)", q:"고향이 어디세요? 부모님은 무슨 일 하세요?" },
+      { label:"면박 (갑질·훈계)", q:"아니 그거 아닌데, 잘 모르시는 것 같은데 다시 대답해 보세요." }
+    ]
+  };
+
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];}); }
+
+  /* ---------- 자기소개서: 예시 + 검토 엔진 ---------- */
+  var COVER_EXAMPLES = {
+    dev:"저는 3년간 백엔드 개발자로 일하며 대용량 트래픽 처리에 강점을 키워왔습니다. 이전 회사에서 주문 처리 시스템의 성능 개선 프로젝트를 주도했고, 그 결과 평균 응답 속도를 크게 단축했습니다. 새로운 기술을 빠르게 습득하는 학습 능력과, 맡은 일은 끝까지 책임지는 자세가 저의 가장 큰 강점입니다. 여러 부서가 얽힌 복잡한 요구사항도 팀원들과의 원활한 소통을 통해 차질 없이 조율해 왔습니다. 늘 새로운 문제에 도전하는 것을 즐기며, 귀사의 기술적 과제 해결에 기여하고 싶어 지원하게 되었습니다.",
+    sales:"5년간 B2B 영업을 담당하며 매년 목표를 초과 달성해 왔습니다. 특히 신규 거래처 발굴에 강점이 있어, 작년에는 담당 지역의 매출을 전년 대비 크게 성장시켰습니다. 고객의 니즈를 먼저 파악하고 신뢰를 쌓는 것을 가장 중요하게 생각합니다. 어떤 어려운 상황에서도 포기하지 않는 끈기와 열정으로 위기를 기회로 만들어 왔습니다. 고객사와의 오랜 관계를 바탕으로 안정적인 실적을 내 왔으며, 귀사의 성장에 영업 성과로 기여하고 싶습니다.",
+    support:"저는 4년간 경영지원 업무를 맡으며 꼼꼼함과 책임감으로 조직을 뒷받침해 왔습니다. 반복되던 비효율적인 업무 프로세스를 개선해 처리 시간을 단축했고, 여러 부서의 요청을 우선순위에 따라 정확하게 처리했습니다. 사람들과 두루 잘 지내는 원만한 성격으로 부서 간 가교 역할을 해 왔습니다. 맡은 일은 끝까지 책임지는 성실함이 저의 가장 큰 강점입니다. 안정적인 지원 업무로 조직이 본업에 집중할 수 있도록 돕고 싶어 귀사에 지원하게 되었습니다."
+  };
+  // 단어 단위 규칙: 카테고리별로 추상·과장·모호·상투 표현을 폭넓게 감지(자소서마다 다른 표현이 잡히도록)
+  var CV_RULES = [
+    { cat:"추상적 강점", re:/(열정|최선|성실|책임감|책임지는|소통|커뮤니케이션|꼼꼼|끈기|적극적|긍정적|도전정신|도전|헌신|열심|노력파|봉사|희생|배려심|배려|친화력|원만|두루|성장해\s*왔|자기계발|프로의식|주인의식|글로벌\s*마인드|문제\s*해결\s*능력)/g,
+      why:function(w){ return "‘"+w+"’ — 추상적 자질입니다. 그게 드러난 구체적 행동·사례를 확인하세요."; } },
+    { cat:"과장·단정", re:/(가장|최고|누구보다|제일|항상|언제나|늘|절대|반드시|모든|완벽|확실히|뛰어난|탁월|남다른|독보적|최우선|무엇보다)/g,
+      why:function(w){ return "‘"+w+"’ — 단정·과장 표현입니다. 예외나 한계는 없었는지 되물어 확인하세요."; } },
+    { cat:"모호한 범위", re:/(다양한|여러|많은|수많은|폭넓은|오랫동안|꾸준히|종종|자주|대부분|상당히|크게|많이|두루두루)/g,
+      why:function(w){ return "‘"+w+"’ — 범위·정도가 모호합니다. 구체적으로 몇 건·어느 정도였는지 확인하세요."; } },
+    { cat:"상투적 문구", re:/(어릴\s*적부터|어렸을\s*때부터|뼈를\s*묻|귀사|일원이\s*되|함께\s*성장|성장하고\s*싶|기여하고\s*싶|이바지|인재가\s*되|적임자|밑거름|초석)/g,
+      why:function(w){ return "‘"+w+"’ — 상투적 문구입니다. 회사·직무에 대한 실제 이해가 있는지 확인하세요."; } }
+  ];
+  // 성과를 뜻하는 동사(수치가 함께 없으면 검증 대상)
+  var CV_ACHIEVE = /(개선|향상|단축|증가|감소|절감|상승|성장|달성|초과|확대|줄였|줄이|늘렸|늘리|높였|높이|구축|주도|리드|이끌|성공|해결|기록|수상|선정|발굴|승진|확보|유치)/;
+
+  function cvSnip(s, kw){
+    s=(s||"").trim().replace(/\s+/g," ");
+    if(s.length<=26) return s;
+    var i = kw ? s.indexOf(kw) : -1;
+    if(i<0) return s.slice(0,24)+"…";
+    var a=Math.max(0,i-9), b=Math.min(s.length, i+(kw?kw.length:0)+13);
+    return (a>0?"…":"")+s.slice(a,b)+(b<s.length?"…":"");
+  }
+
+  function analyzeCover(text){
+    var t=(text||"").trim();
+    if(!t) return { empty:true };
+
+    var marks=[], contentPoints=[], traitPoints=[];
+    function pushTrait(cat,msg){ if(!traitPoints.some(function(p){return p.msg===msg;})) traitPoints.push({cat:cat,msg:msg}); }
+    function pushContent(cat,msg){ if(!contentPoints.some(function(p){return p.msg===msg;})) contentPoints.push({cat:cat,msg:msg}); }
+
+    // 1) 단어 단위: 본문 하이라이트 + 표현 포인트
+    CV_RULES.forEach(function(rule){
+      var re=new RegExp(rule.re.source, rule.re.flags), m;
+      while((m=re.exec(text))){
+        marks.push({start:m.index,end:m.index+m[0].length});
+        pushTrait(rule.cat, rule.why(m[0]));
+        if(m.index===re.lastIndex) re.lastIndex++;
+      }
+    });
+
+    // 2) 문장 단위: 실제 문장을 읽어 '수치 없는 성과'를 인용해 지적
+    var sentences = text.split(/[.!?。\n]+/).map(function(s){return s.trim();}).filter(function(s){return s.length>5;});
+    var achieveSents=[];
+    sentences.forEach(function(s){
+      var hit=s.match(CV_ACHIEVE);
+      if(hit && !/[0-9]/.test(s)){
+        achieveSents.push(s);
+        pushContent("수치 없는 성과", "‘"+cvSnip(s,hit[0])+"’ — 성과를 말했지만 수치가 없습니다. 얼마나·무엇과 비교해 좋아졌는지 확인하세요.");
+      }
+    });
+
+    // 3) 구체성 메터
+    var numCount=(text.match(/[0-9]+/g)||[]).length;
+    var concrete = numCount>=3 ? "높음" : (numCount>=1 ? "보통" : "낮음");
+
+    // 본문 하이라이트 세그먼트 구성
+    marks.sort(function(a,b){return a.start-b.start;});
+    var merged=[], last=-1;
+    marks.forEach(function(mk){ if(mk.start>=last){ merged.push(mk); last=mk.end; } });
+    var segs=[], cur=0;
+    merged.forEach(function(mk){
+      if(mk.start>cur) segs.push({text:text.slice(cur,mk.start)});
+      segs.push({text:text.slice(mk.start,mk.end),hl:true}); cur=mk.end;
+    });
+    if(cur<text.length) segs.push({text:text.slice(cur)});
+
+    // 내용 포인트를 먼저, 표현 포인트를 뒤에
+    var points = contentPoints.concat(traitPoints);
+
+    // 4) 추천 질문 — 실제 문장을 인용해 생성
+    var qs=[];
+    achieveSents.slice(0,2).forEach(function(s){
+      var hit=(s.match(CV_ACHIEVE)||[""])[0];
+      qs.push("‘"+cvSnip(s,hit)+"’ — 구체적으로 어느 정도였고, 그 수치는 어떻게 측정·확인하셨나요?");
+    });
+    if(/주도|리드|이끌|담당/.test(text)) qs.push("‘주도(또는 담당)’라 쓰신 일에서, 본인이 직접 결정·실행한 부분과 팀이 함께 한 부분을 구분해 말씀해 주세요.");
+    if(/협업|부서|조율|가교|고객|거래처|동료/.test(text)) qs.push("여러 사람과 협업하셨다고 했는데, 의견이 부딪혔을 때 본인이 실제로 어떻게 조율하셨는지 사례로 말씀해 주세요.");
+    if(/프로젝트|시스템|기술|개발|설계|성능/.test(text)) qs.push("적어 주신 프로젝트에서 본인이 맡은 핵심 역할과, 가장 어려웠던 문제를 어떻게 풀었는지 구체적으로 말씀해 주세요.");
+    qs = qs.filter(function(q,i){return qs.indexOf(q)===i;}).slice(0,3);
+    qs.push("자소서에서 가장 자신 있는 경험 하나를 골라, 상황(S)·본인 행동(A)·결과(R) 순으로 말씀해 주세요.");
+    qs = qs.filter(function(q,i){return qs.indexOf(q)===i;}).slice(0,4);
+
+    return { empty:false, segments:segs.length?segs:[{text:text}], points:points, questions:qs, concrete:concrete, numCount:numCount, sentCount:sentences.length };
+  }
+
+
+  function analyzeQuestion(text){
+    var t=(text||"").trim();
+    if(!t) return { segments:[], issues:[], corrected:"", clean:true, empty:true };
+    var marks=[];
+    PATTERNS.forEach(function(p){
+      var re=new RegExp(p.re.source,p.re.flags), m;
+      while((m=re.exec(text))){ marks.push({start:m.index,end:m.index+m[0].length,type:p.type,fix:p.fix,note:p.note}); if(m.index===re.lastIndex) re.lastIndex++; }
+    });
+    marks.sort(function(a,b){return a.start-b.start;});
+    var merged=[], last=-1;
+    marks.forEach(function(mk){ if(mk.start>=last){ merged.push(mk); last=mk.end; } });
+    var segs=[], cur=0;
+    merged.forEach(function(mk){ if(mk.start>cur) segs.push({text:text.slice(cur,mk.start)}); segs.push({text:text.slice(mk.start,mk.end),issue:mk.type}); cur=mk.end; });
+    if(cur<text.length) segs.push({text:text.slice(cur)});
+    var issues=[]; merged.forEach(function(m){ if(issues.indexOf(m.type)<0) issues.push(m.type); });
+    var clean=issues.length===0, corrected="", note="";
+    if(!clean){
+      // 심각도 순(차별 > 갑질 > 변별력)으로 교정안을 고름
+      var order=["차별·부적절","무례·갑질","변별력 낮음"], chosen=null;
+      order.forEach(function(tp){ if(!chosen){ chosen=merged.filter(function(mk){return mk.type===tp && mk.fix;})[0]||null; } });
+      if(chosen){ corrected=chosen.fix; note=chosen.note||""; }
+      else { var th=THEMES.find(function(x){return x.re.test(text);}); corrected= th? th.fix : "직무와 관련해 본인이 직접 해낸 일을 하나 골라, 어떤 상황에서 무엇을 했고 결과가 어땠는지 사례로 말씀해 주세요."; }
+    }
+    return { segments:segs.length?segs:[{text:text}], issues:issues, corrected:corrected, note:note, clean:clean, empty:false };
+  }
+  /* 답변을 실제로 읽고 STAR 구성·구체성을 진단 → 답변에서 도출한 후속 질문 */
+  function analyzeAnswer(text){
+    var t=(text||"").trim(); if(!t) return null;
+    var len=t.replace(/\s/g,"").length;
+
+    // 신호 감지
+    var hasNum     = /[0-9]/.test(t) || /\d?\s*(명|건|개|배|퍼센트|%|원|억|만원|시간|분|일|주|개월|년|등|위|차)/.test(t);
+    var firstAction= /(제가|내가|저는|직접|혼자)/.test(t) && /(했|처리|진행|제안|결정|설득|조율|분석|기획|구현|개발|만들|준비|정리|확인|해결|주도)/.test(t);
+    var teamHeavy  = /(우리|팀이|팀에서|회사가|다\s*같이|함께|모두)/.test(t);
+    var hasResult  = /(결과|그래서|덕분에|줄었|늘었|증가|감소|개선|달성|성공|해결|단축|향상|이어졌|만들었|절감|상승|하락)/.test(t);
+    var vagueHit   = (t.match(/열심히|최선|노력|열정|성실|소통|협업|책임감|꼼꼼|많이|두루|원만/)||[null])[0];
+    var blame      = /(어쩔\s*수\s*없|상사가|회사가\s*잘못|팀\s*탓|남\s*탓|환경이|운이\s*없|시간이\s*없어서)/.test(t);
+
+    // 구성 진단(있는 것 / 빠진 것)
+    var have=[], miss=[];
+    (firstAction)        ? have.push("본인 행동") : miss.push("본인이 직접 한 행동");
+    (hasResult)          ? have.push("결과")     : miss.push("결과·성과");
+    if(hasNum) have.push("수치");
+
+    var depth;
+    if(len<25)                 depth="답변이 짧습니다 — 사례 하나를 더 구체적으로 들어 달라고 요청하세요.";
+    else if(!miss.length && hasNum) depth="상황·행동·결과가 고루 담겼습니다 — 사실 여부만 한 번 더 확인하세요.";
+    else if(miss.length)       depth=miss.join("·")+"이(가) 잘 안 보입니다 — 그 부분을 보완해 물어보세요.";
+    else                       depth="비교적 구체적입니다 — 수치/근거를 한 단계 더 파고드세요.";
+    var enough = len>=40 && miss.length===0;
+
+    // 답변에서 직접 도출한 후속 질문(감지된 빈틈 순서대로)
+    var probes=[];
+    if(teamHeavy && !firstAction) probes.push("‘팀’으로 말씀하셨는데, 그중에서 본인이 직접 맡아 한 부분만 따로 떼어 말씀해 주세요.");
+    if(!hasResult)                probes.push("그 행동 이후 상황이 실제로 어떻게 달라졌나요? 결과를 구체적으로 알려 주세요.");
+    if(!hasNum && hasResult)      probes.push("방금 말씀하신 결과를 수치나 비교 가능한 사실로 바꿔서 말씀해 주실 수 있나요?");
+    if(vagueHit)                  probes.push("‘"+vagueHit+"’이라고 하셨는데, 구체적으로 어떤 행동이었는지 한 장면으로 떠올려 말씀해 주세요.");
+    if(blame)                     probes.push("그 상황에서 본인이 바꿀 수 있었던 부분은 무엇이었다고 생각하세요?");
+    if(len<25)                    probes.push("조금 더 자세히, 어떤 상황이었고 본인이 무엇을 했는지 순서대로 들려주세요.");
+    if(!probes.length)            probes.push("방금 사례에서 가장 어려웠던 판단은 무엇이었고, 왜 그렇게 정하셨나요?");
+    probes=probes.slice(0,3);
+
+    return { enough:enough, depth:depth, have:have, miss:miss, probes:probes };
+  }
+
+  /* ---------- DOM ---------- */
+  var qInput=document.getElementById("qInput"), qStatus=document.getElementById("qStatus"),
+      qMic=document.getElementById("qMic"), leftPanel=document.getElementById("leftPanel"),
+      rightPanel=document.getElementById("rightPanel"), issueTags=document.getElementById("issueTags"),
+      aInput=document.getElementById("aInput"),
+      aResult=document.getElementById("aResult"), critTabs=document.getElementById("critTabs"),
+      critDesc=document.getElementById("critDesc"), critList=document.getElementById("critList"),
+      bestChips=document.getElementById("bestChips"), worstChips=document.getElementById("worstChips");
+  var cInput=document.getElementById("cInput"), cStatus=document.getElementById("cStatus"),
+      cPoints=document.getElementById("cPoints"), cQuestions=document.getElementById("cQuestions"),
+      cClear=document.getElementById("cClear"), qCard=document.getElementById("qCard");
+
+  function bindCopy(scope){
+    (scope||document).querySelectorAll(".copy[data-copy]").forEach(function(btn){
+      btn.onclick=function(){
+        var t=btn.getAttribute("data-copy");
+        if(navigator.clipboard) navigator.clipboard.writeText(t);
+        var o=btn.getAttribute("data-label")||"복사";
+        btn.textContent="복사됨"; btn.classList.add("done");
+        setTimeout(function(){ btn.textContent=o; btn.classList.remove("done"); },1400);
+      };
+    });
+  }
+
+  /* 자기소개서 검토 렌더링 */
+  function sendToReview(q){
+    qInput.value=q; renderReview();
+    if(qCard && qCard.scrollIntoView) qCard.scrollIntoView({behavior:"smooth",block:"start"});
+    setTimeout(function(){ qInput.focus(); }, 350);
+  }
+  function renderCover(){
+    var r=analyzeCover(cInput.value);
+    if(r.empty){
+      cStatus.style.display="none";
+      cPoints.innerHTML='<p class="muted">자소서를 입력하면 추상적·과장된 표현을 빨갛게 강조해 표시합니다. 오른쪽엔 곧바로 물어볼 질문이 나옵니다.</p>';
+      cQuestions.innerHTML='<p class="muted">자소서 내용에서 곧바로 물어볼 수 있는 질문을 만들어 드립니다. 질문 옆 버튼을 누르면 아래 ‘질문 검토’로 넘어갑니다.</p>';
+      return;
+    }
+    // 상태 배지
+    cStatus.style.display="inline-flex";
+    if(r.points.length){ cStatus.className="pill pill-bad"; cStatus.textContent="확인할 표현 "+r.points.length+"곳"; }
+    else { cStatus.className="pill pill-ok"; cStatus.textContent="문제 표현 적음"; }
+    // 왼쪽: 본문에서 확인할 표현만 볼드·레드로 강조
+    if(r.points.length){
+      cPoints.innerHTML='<p class="q-text" style="font-size:14px;line-height:1.95;">'+ r.segments.map(function(s){
+        return s.hl ? '<mark class="hl">'+esc(s.text)+'</mark>' : esc(s.text);
+      }).join("") +'</p>';
+    } else {
+      cPoints.innerHTML='<div class="ok-line"><span class="ck">✓</span><span>구체적으로 잘 쓰여 있습니다. 강조해 되물을 표현은 보이지 않아요.</span></div>';
+    }
+    // 오른쪽: 추천 질문 (→ 질문 검토로 보내기)
+    cQuestions.innerHTML = r.questions.map(function(q,i){
+      return '<div class="cv-q"><p>'+(i+1)+'. '+esc(q)+'</p><div class="row">'+
+        '<button class="use-btn" type="button" data-use="'+esc(q)+'">↓ 이 질문으로 검토하기</button>'+
+        '<button class="copy" data-copy="'+esc(q)+'">복사</button>'+
+        '</div></div>';
+    }).join("");
+    cQuestions.querySelectorAll("[data-use]").forEach(function(b){
+      b.onclick=function(){ sendToReview(b.getAttribute("data-use")); };
+    });
+    bindCopy(cQuestions);
+  }
+  // 예시 자소서 버튼
+  document.querySelectorAll(".ex-btn[data-ex]").forEach(function(b){
+    b.onclick=function(){
+      cInput.value = COVER_EXAMPLES[b.getAttribute("data-ex")] || "";
+      document.querySelectorAll(".ex-btn").forEach(function(x){ x.classList.remove("on"); });
+      b.classList.add("on");
+      renderCover(); cInput.focus();
+    };
+  });
+  cClear.onclick=function(){
+    cInput.value=""; document.querySelectorAll(".ex-btn").forEach(function(x){ x.classList.remove("on"); });
+    renderCover(); cInput.focus();
+  };
+  cInput.addEventListener("input", function(){
+    document.querySelectorAll(".ex-btn").forEach(function(x){ x.classList.remove("on"); });
+    renderCover();
+  });
+
+  function renderReview(){
+    var r=analyzeQuestion(qInput.value);
+    if(r.empty){ qStatus.style.display="none"; }
+    else if(r.clean){ qStatus.style.display="inline-flex"; qStatus.className="pill pill-ok"; qStatus.textContent="통과"; }
+    else { qStatus.style.display="inline-flex"; qStatus.className="pill pill-bad"; qStatus.textContent="교정 필요 · "+r.issues.length+"건"; }
+
+    if(r.empty){
+      leftPanel.innerHTML='<p class="muted">왼쪽에 질문을 입력하면 교정이 필요한 표현이 빨갛게 표시됩니다.</p>'; issueTags.innerHTML="";
+    } else {
+      leftPanel.innerHTML='<p class="q-text">'+ r.segments.map(function(s){
+        return s.issue ? '<mark class="hl" title="'+esc(s.issue)+'">'+esc(s.text)+'</mark>' : esc(s.text);
+      }).join("") +'</p>';
+      issueTags.innerHTML = r.issues.length ? '<div class="tags">'+ r.issues.map(function(it){return '<span class="tag-bad">'+esc(it)+'</span>';}).join("") +'</div>' : "";
+    }
+
+    if(r.empty){ rightPanel.innerHTML='<p class="muted">교정된 질문이 여기에 실시간으로 나타납니다.</p>'; }
+    else if(r.clean){ rightPanel.innerHTML='<div class="ok-line"><span class="ck">✓</span><span>수정할 부분이 없습니다. 그대로 사용하셔도 좋습니다.</span></div>'; }
+    else { rightPanel.innerHTML=(r.note?'<p class="muted" style="margin:0 0 9px;display:flex;gap:6px;"><span style="color:var(--red500);font-weight:800;">⚠</span><span>'+esc(r.note)+'</span></p>':'')+'<p class="q-text strong">'+esc(r.corrected)+'</p><div class="mt"><button class="copy" data-label="대체 질문 복사" data-copy="'+esc(r.corrected)+'">대체 질문 복사</button></div>'; }
+
+    bindCopy(document);
+  }
+
+  function renderAnswer(){
+    var r=analyzeAnswer(aInput.value);
+    if(!r){ aResult.innerHTML='<p class="muted">지원자의 답변을 붙여넣으면 구성(행동·결과·수치)을 진단하고, 그 답변에서 곧바로 이어 물을 후속 질문을 정리해 드립니다.</p>'; return; }
+    var tags='';
+    if(r.have.length) tags+=r.have.map(function(h){return '<span class="cov ok">✓ '+esc(h)+'</span>';}).join("");
+    if(r.miss.length) tags+=r.miss.map(function(m){return '<span class="cov no">✕ '+esc(m)+'</span>';}).join("");
+    aResult.innerHTML='<div class="depth '+(r.enough?"ok":"warn")+'"><span class="dot"></span>'+esc(r.depth)+'</div>'+
+      (tags?'<div class="covrow">'+tags+'</div>':'')+
+      '<div class="eyebrow stone">이 답변에서 이어 물을 후속 질문</div>'+
+      '<div class="qlist">'+ r.probes.map(function(q,i){
+        return '<div class="qitem"><span class="qno amber">'+(i+1)+'</span><p>'+esc(q)+'</p><button class="copy" data-copy="'+esc(q)+'">복사</button></div>';
+      }).join("") +'</div>';
+    bindCopy(aResult);
+  }
+
+  /* 평가 기준 탭 */
+  var critTab="동기적합성";
+  function renderCriteria(){
+    var cur=CRITERIA[critTab];
+    critDesc.textContent=cur.desc;
+    critList.innerHTML=cur.qs.map(function(q){ return '<button class="crit-q" type="button" data-pick="'+esc(q)+'">'+esc(q)+'</button>'; }).join("");
+    critList.querySelectorAll("[data-pick]").forEach(function(b){
+      b.onclick=function(){ qInput.value=b.getAttribute("data-pick"); renderReview(); qInput.focus(); };
+    });
+    Array.prototype.forEach.call(critTabs.children,function(b){ b.classList.toggle("active", b.getAttribute("data-tab")===critTab); });
+  }
+  Object.keys(CRITERIA).forEach(function(name){
+    var b=document.createElement("button"); b.className="tab"; b.type="button"; b.textContent=name; b.setAttribute("data-tab",name);
+    b.onclick=function(){ critTab=name; renderCriteria(); };
+    critTabs.appendChild(b);
+  });
+
+  /* 예시 칩 */
+  function renderChips(){
+    bestChips.innerHTML=EXAMPLES.best.map(function(e){ return '<button class="chip best" type="button" data-q="'+esc(e.q)+'">'+esc(e.label)+'</button>'; }).join(" ");
+    worstChips.innerHTML=EXAMPLES.worst.map(function(e){ return '<button class="chip worst" type="button" data-q="'+esc(e.q)+'">'+esc(e.label)+'</button>'; }).join(" ");
+    document.querySelectorAll(".chip[data-q]").forEach(function(b){
+      b.onclick=function(){ qInput.value=b.getAttribute("data-q"); renderReview(); qInput.focus(); };
+    });
+  }
+
+  /* 음성 입력 */
+  (function(){
+    var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+    var lbl=qMic.querySelector(".lbl");
+    if(!SR){ qMic.disabled=true; lbl.textContent="음성 미지원"; qMic.title="이 브라우저는 음성 인식을 지원하지 않습니다 (Chrome·Edge 권장)"; return; }
+    var recog=null, listening=false;
+    function set(on){ listening=on; qMic.classList.toggle("live",on); lbl.textContent=on?"듣는 중…":"음성 입력"; }
+    qMic.onclick=function(){
+      if(listening){ if(recog) recog.stop(); return; }
+      recog=new SR(); recog.lang="ko-KR"; recog.interimResults=true; recog.continuous=false;
+      var base=qInput.value? qInput.value.trim()+" ":"";
+      recog.onresult=function(e){ var txt=""; for(var i=0;i<e.results.length;i++) txt+=e.results[i][0].transcript; qInput.value=base+txt; renderReview(); };
+      recog.onerror=function(){ set(false); };
+      recog.onend=function(){ set(false); };
+      set(true);
+      try{ recog.start(); }catch(_){ set(false); }
+    };
+  })();
+
+  qInput.addEventListener("input", renderReview);
+  aInput.addEventListener("input", renderAnswer);
+
+  renderChips();
+  renderCriteria();
+  renderCover();
+  renderReview();
+  renderAnswer();
+})();
+</script>
+</body>
+</html>
