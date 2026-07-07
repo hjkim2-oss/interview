@@ -291,10 +291,10 @@
     <div id="candidate-load-status" style="margin-top:8px;"></div>
 
     <div id="case-answer-block" style="margin-top:18px;">
-      <label class="field-label" for="case-answer">지원자가 제안한 해결 방안</label>
+      <label class="field-label" for="case-answer">지원자 답변</label>
       <textarea id="case-answer" placeholder="위에서 지원자를 선택하면 자동으로 채워집니다. 직접 입력하거나 수정할 수도 있습니다."></textarea>
       <div class="btn-row">
-        <button class="btn btn-ghost" id="btn-gen-deepdive">심층 질문 만들기</button>
+        <button class="btn btn-ghost" id="btn-gen-deepdive">질문 리스트 만들기</button>
       </div>
     </div>
 
@@ -418,19 +418,8 @@ const CASE_DATA = {
 function renderFixedCase(track){
   const c = CASE_DATA[track];
   currentCase = c;
-  const signalsHTML = c.signals.map(s=>{
-    const badgeClass = s.fit === "판단기준" ? "good" : (s.fit === "우선순위" ? "neutral" : "alt");
-    return `<div class="card" style="margin-left:14px;border-left:3px solid var(--accent-soft);">
-      <span class="badge ${badgeClass}">${s.fit}</span>
-      <p style="margin-top:8px;">${s.t}</p>
-    </div>`;
-  }).join('');
   caseOutput.innerHTML = `
     <div class="card"><span class="k mono">${c.label} 케이스</span><p style="white-space:pre-line;">${c.q}</p></div>
-    <details class="ref" style="margin-top:18px;">
-      <summary>확인 질문</summary>
-      <div style="margin-top:6px;">${signalsHTML}</div>
-    </details>
   `;
   deepdiveOutput.innerHTML = '';
 }
