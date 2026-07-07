@@ -430,7 +430,7 @@ const getCaseTrack = wireSeg('case-track-seg', renderFixedCase);
 // ---------- Claude API helper ----------
 // 깃허브 페이지 등 외부에 배포할 때는, 아래에 Cloudflare Worker 프록시 주소를 넣으세요.
 // 비워두면(테스트 중) 클로드 채팅창 미리보기 안에서만 직접 호출됩니다.
-const PROXY_URL = "https://little-pond-c178.hjkim2.workers.dev"; // Cloudflare Worker 프록시 주소
+const PROXY_URL = "https://spigen-interview-proxy-app.vercel.app/api/proxy"; // Vercel Edge Function 프록시 주소
 
 async function callClaude(systemPrompt, userPrompt){
   const endpoint = PROXY_URL || "https://api.anthropic.com/v1/messages";
