@@ -50,7 +50,16 @@
 
   /* header */
   header.topbar{padding:0;}
+  .brand-mark{
+    width:36px;height:36px;border-radius:10px;
+    background:var(--accent);color:#fff;
+    display:inline-flex;align-items:center;justify-content:center;
+    margin-bottom:14px;
+    box-shadow:0 3px 8px rgba(60,94,71,0.28);
+  }
+  .brand-mark svg{width:19px;height:19px;}
   .eyebrow{
+    display:flex;align-items:center;gap:8px;
     font-family:'PretendardVariable','Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;
     font-size:13px;
     font-weight:600;
@@ -141,6 +150,15 @@
   .seg button.active{background:var(--accent);color:#fff;}
 
   label.field-label{display:block;font-size:13px;font-weight:600;color:var(--ink-soft);margin:16px 0 8px;}
+  .label-row{display:flex;align-items:center;justify-content:space-between;margin:16px 0 8px;flex-wrap:wrap;gap:8px;}
+  .link-btn{
+    background:none;border:none;padding:0;margin:0;cursor:pointer;
+    font-family:inherit;font-size:12.5px;font-weight:600;color:var(--accent-ink);
+    display:inline-flex;align-items:center;gap:5px;
+  }
+  .link-btn svg{width:12px;height:12px;}
+  .link-btn:hover{text-decoration:underline;}
+  .link-btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px;}
   textarea, input[type=text]{
     width:100%;
     border:1px solid var(--line);
@@ -183,7 +201,9 @@
     padding:16px 18px;
     margin-top:14px;
     background:#FBF9F4;
+    transition:border-color .15s ease, box-shadow .15s ease, transform .15s ease;
   }
+  .card:hover{ border-color:#D8CBAE; box-shadow:0 3px 10px rgba(42,37,33,0.05); }
   .card .k{
     font-family:'IBM Plex Mono',monospace;
     font-size:11px;
@@ -199,9 +219,101 @@
   .card p{margin:0;font-size:14.5px;color:var(--ink);}
   .card + .card{margin-top:10px;}
 
-  .badge{
-    display:inline-block;font-size:12.5px;font-weight:600;padding:5px 11px;border-radius:999px;
+  /* icon badge card headers */
+  .card-head{display:flex;align-items:center;gap:9px;margin-bottom:9px;}
+  .card-icon{
+    width:26px;height:26px;border-radius:8px;flex:0 0 auto;
+    display:inline-flex;align-items:center;justify-content:center;
   }
+  .card-icon svg{width:14px;height:14px;display:block;}
+  .card-icon.c-accent{background:var(--accent-soft);color:var(--accent-ink);}
+  .card-icon.c-gold{background:var(--accent2-soft);color:var(--accent2-ink);}
+  .card-icon.c-good{background:var(--good-soft);color:var(--good);}
+  .card-icon.c-warn{background:var(--warn-soft);color:var(--warn);}
+  .card-title{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
+    letter-spacing:0.06em;color:var(--ink-soft);
+  }
+  .num-badge{
+    width:26px;height:26px;border-radius:8px;flex:0 0 auto;
+    display:inline-flex;align-items:center;justify-content:center;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;
+    background:var(--accent2-soft);color:var(--accent2-ink);
+  }
+  .basis{
+    display:flex;align-items:flex-start;gap:6px;margin-top:9px !important;
+    font-size:12.5px !important;color:var(--muted) !important;
+    padding-top:9px;border-top:1px dashed var(--line);
+  }
+  .basis svg{width:12px;height:12px;flex:0 0 auto;margin-top:2px;color:var(--muted);}
+
+  /* AI-generated result tag */
+  .ai-tag{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:12px;font-weight:600;color:var(--accent2-ink);
+    background:var(--accent2-soft);padding:5px 10px 5px 8px;border-radius:999px;
+    margin-top:16px;
+  }
+  .ai-tag svg{width:12px;height:12px;}
+  .result-group .card{ animation:cardIn .38s ease both; }
+  .result-group .card:nth-of-type(1){animation-delay:.02s;}
+  .result-group .card:nth-of-type(2){animation-delay:.08s;}
+  .result-group .card:nth-of-type(3){animation-delay:.14s;}
+  .result-group .card:nth-of-type(4){animation-delay:.20s;}
+  .result-group .card:nth-of-type(5){animation-delay:.26s;}
+  .result-group .card:nth-of-type(6){animation-delay:.32s;}
+  @keyframes cardIn{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:translateY(0);}}
+  @media (prefers-reduced-motion:reduce){ .result-group .card{animation:none;} }
+
+  /* accordion (main question -> click to reveal followups) */
+  .acc-group{margin-top:0;}
+  .acc-item{
+    border:1px solid var(--line);border-radius:var(--radius-md);
+    background:#FBF9F4;margin-top:10px;overflow:hidden;
+    animation:cardIn .38s ease both;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .acc-item:nth-of-type(1){animation-delay:.02s;}
+  .acc-item:nth-of-type(2){animation-delay:.08s;}
+  .acc-item:nth-of-type(3){animation-delay:.14s;}
+  .acc-item.open{border-color:#CFC2A4;box-shadow:0 3px 10px rgba(42,37,33,0.05);}
+  .acc-header{
+    width:100%;display:flex;align-items:flex-start;gap:12px;
+    padding:14px 16px;background:none;border:none;cursor:pointer;
+    text-align:left;font-family:inherit;color:inherit;
+  }
+  .acc-header:hover{background:rgba(42,37,33,0.025);}
+  .acc-header:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;}
+  .acc-chevron{
+    width:16px;height:16px;flex:0 0 auto;margin-top:5px;color:var(--muted);
+    transition:transform .2s ease,color .15s ease;
+  }
+  .acc-item.open .acc-chevron{transform:rotate(90deg);color:var(--accent-ink);}
+  .acc-main-q{flex:1;min-width:0;}
+  .acc-main-q p{margin:0;font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.5;}
+  .acc-basis{
+    display:flex;align-items:flex-start;gap:6px;margin-top:7px;
+    font-size:12px;color:var(--muted);
+  }
+  .acc-basis svg{width:11px;height:11px;flex:0 0 auto;margin-top:2px;}
+  .acc-body-wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .25s ease;}
+  .acc-item.open .acc-body-wrap{grid-template-rows:1fr;}
+  .acc-body{overflow:hidden;min-height:0;padding:0 16px;}
+  .acc-item.open .acc-body{padding:0 16px 16px 42px;}
+  @media (prefers-reduced-motion:reduce){ .acc-item{animation:none;} .acc-body-wrap{transition:none;} }
+  .acc-followup{display:flex;gap:10px;padding:10px 0;border-top:1px dashed var(--line);}
+  .acc-followup:first-child{border-top:1px solid var(--line);}
+  .acc-followup .fu-num{
+    flex:0 0 auto;font-size:11px;font-weight:700;letter-spacing:0.04em;
+    color:var(--accent2-ink);background:var(--accent2-soft);
+    padding:3px 8px;border-radius:6px;margin-top:1px;white-space:nowrap;
+  }
+  .acc-followup p{margin:0;font-size:14px;color:var(--ink);}
+
+  .badge{
+    display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;padding:5px 11px;border-radius:999px;
+  }
+  .badge svg{width:12px;height:12px;}
   .badge.good{background:var(--good-soft);color:var(--good);}
   .badge.warn{background:var(--warn-soft);color:var(--warn);}
   .badge.neutral{background:var(--accent2-soft);color:var(--accent2-ink);}
@@ -217,6 +329,16 @@
   }
   @media (prefers-reduced-motion:reduce){.spinner{animation:none;}}
   @keyframes spin{to{transform:rotate(360deg);}}
+
+  /* button icons */
+  .btn{display:inline-flex;align-items:center;gap:7px;}
+  .btn svg{width:14px;height:14px;flex:0 0 auto;}
+  .rec-dot{
+    width:8px;height:8px;border-radius:50%;background:var(--warn);flex:0 0 auto;
+    animation:pulse 1s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.28;}}
+  @media (prefers-reduced-motion:reduce){.rec-dot{animation:none;}}
 
   .error-box{
     margin-top:14px;padding:12px 14px;border-radius:var(--radius-sm);
@@ -249,6 +371,9 @@
 <div class="wrap">
 
   <header class="topbar">
+    <div class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.6 8 11 4.6-2.4 8-6 8-11V5l-8-3Z"/><polyline points="9 12 11.3 14.3 15.5 10"/></svg>
+    </div>
     <span class="eyebrow">슈피겐코리아 임원 면접 워크숍</span>
     <h1>면접관 핸드북</h1>
     <p>질문을 점검한 뒤, 답변에서 무엇을 더 확인할지 짚어 드립니다.</p>
@@ -276,7 +401,7 @@
 
     <div class="seg" id="case-track-seg">
       <button class="active" data-track="sales">영업직군</button>
-      <button data-track="nonsales">비영업직군</button>
+      <button data-track="nonsales">지원직군</button>
     </div>
 
     <div id="case-output"></div>
@@ -286,7 +411,7 @@
       <select id="candidate-select" style="flex:1;min-width:200px;border:1px solid var(--line);border-radius:var(--radius-sm);padding:10px 12px;font-family:inherit;font-size:14px;background:#FBF9F4;">
         <option value="">불러오는 중...</option>
       </select>
-      <button class="btn btn-outline" id="btn-refresh-candidates" type="button">새로고침</button>
+      <button class="btn btn-outline" id="btn-refresh-candidates" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a8 8 0 0 0-14.9-3.9"/><path d="M4 12.5a8 8 0 0 0 14.9 3.9"/><polyline points="4.3 3.5 4.3 8.1 8.9 8.1"/><polyline points="19.7 20.5 19.7 15.9 15.1 15.9"/></svg>새로고침</button>
     </div>
     <div id="candidate-load-status" style="margin-top:8px;"></div>
 
@@ -294,7 +419,7 @@
       <label class="field-label" for="case-answer">지원자 답변</label>
       <textarea id="case-answer" placeholder="위에서 지원자를 선택하면 자동으로 채워집니다. 직접 입력하거나 수정할 수도 있습니다."></textarea>
       <div class="btn-row">
-        <button class="btn btn-ghost" id="btn-gen-deepdive">질문 리스트 만들기</button>
+        <button class="btn btn-ghost" id="btn-gen-deepdive"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5 13.9 8.7 20 10.5 13.9 12.3 12 18.5 10.1 12.3 4 10.5 10.1 8.7 12 2.5Z"/></svg>질문 생성</button>
       </div>
     </div>
 
@@ -306,23 +431,22 @@
   <!-- TAB 2: RESUME REVIEW -->
   <section class="panel" id="panel-resume">
     <h2>자기소개서 검토</h2>
-    <p class="sub">영업직군·비영업직군 자기소개서를 BEI 탐침 질문과 STAR 구조 후속 질문으로 검증합니다.</p>
+    <p class="sub">영업직군·지원직군 자기소개서를 BEI 탐침 질문과 STAR 구조 후속 질문으로 검증합니다.</p>
 
     <div class="seg" id="resume-track-seg">
       <button class="active" data-track="영업직군">영업직군</button>
-      <button data-track="비영업직군">비영업직군</button>
+      <button data-track="지원직군">지원직군</button>
     </div>
 
-    <div class="btn-row">
-      <button class="btn btn-outline" id="btn-load-example">예시 자소서 불러오기</button>
+    <div class="label-row">
+      <label class="field-label" for="resume-text" style="margin:0;">자기소개서 본문</label>
+      <button class="link-btn" id="btn-load-example" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>예시 불러오기</button>
     </div>
     <div class="example-preview" id="example-preview" style="display:none;"></div>
-
-    <label class="field-label" for="resume-text">자기소개서 본문</label>
     <textarea id="resume-text" style="min-height:180px;" placeholder="지원자의 자기소개서를 붙여넣으세요."></textarea>
 
     <div class="btn-row">
-      <button class="btn btn-primary" id="btn-gen-resume">질문 만들기</button>
+      <button class="btn btn-primary" id="btn-gen-resume"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5 13.9 8.7 20 10.5 13.9 12.3 12 18.5 10.1 12.3 4 10.5 10.1 8.7 12 2.5Z"/></svg>질문 생성</button>
     </div>
 
     <div id="resume-output"></div>
@@ -336,9 +460,9 @@
     <p class="sub">면접관이 준비한 질문이 적절한지 점검하고, 슈피겐코리아 인재상·직무 역량에 맞게 다듬습니다.</p>
 
     <div class="btn-row" style="margin-bottom:14px;">
-      <button class="btn btn-outline" id="btn-mic" type="button">🎙 음성 입력</button>
-      <button class="btn btn-ghost" id="btn-best" type="button">베스트</button>
-      <button class="btn btn-ghost" id="btn-worst" type="button">워스트</button>
+      <button class="btn btn-outline" id="btn-mic" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10.5a7 7 0 0 0 14 0"/><line x1="12" y1="19.5" x2="12" y2="22"/></svg>음성 입력</button>
+      <button class="btn btn-ghost" id="btn-best" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>베스트</button>
+      <button class="btn btn-ghost" id="btn-worst" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 16.7h.01"/><path d="M10.3 3.9 1.8 18.5A1.8 1.8 0 0 0 3.3 21.2h17.4a1.8 1.8 0 0 0 1.5-2.7L13.7 3.9a1.8 1.8 0 0 0-3.4 0Z"/></svg>워스트</button>
     </div>
 
     <textarea id="question-text" placeholder="면접관이 준비한 질문 또는 AI가 생성한 질문을 입력하세요."></textarea>
@@ -365,6 +489,26 @@
 </div>
 
 <script>
+// ---------- icon library ----------
+const ICONS = {
+  doc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>',
+  target: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg>',
+  compass: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polygon points="14.8 9.2 12.9 14.9 9.2 14.8 11.1 9.1"/></svg>',
+  refresh: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a8 8 0 0 0-14.9-3.9"/><path d="M4 12.5a8 8 0 0 0 14.9 3.9"/><polyline points="4.3 3.5 4.3 8.1 8.9 8.1"/><polyline points="19.7 20.5 19.7 15.9 15.1 15.9"/></svg>',
+  eye: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.4 12S5.6 5 12 5s10.6 7 10.6 7-4.2 7-10.6 7S1.4 12 1.4 12Z"/><circle cx="12" cy="12" r="3"/></svg>',
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+  alert: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 16.7h.01"/><path d="M10.3 3.9 1.8 18.5A1.8 1.8 0 0 0 3.3 21.2h17.4a1.8 1.8 0 0 0 1.5-2.7L13.7 3.9a1.8 1.8 0 0 0-3.4 0Z"/></svg>',
+  spark: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5 13.9 8.7 20 10.5 13.9 12.3 12 18.5 10.1 12.3 4 10.5 10.1 8.7 12 2.5Z"/></svg>',
+  mic: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10.5a7 7 0 0 0 14 0"/><line x1="12" y1="19.5" x2="12" y2="22"/></svg>',
+  refreshSmall: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a8 8 0 0 0-14.9-3.9"/><path d="M4 12.5a8 8 0 0 0 14.9 3.9"/><polyline points="4.3 3.5 4.3 8.1 8.9 8.1"/><polyline points="19.7 20.5 19.7 15.9 15.1 15.9"/></svg>',
+};
+function cardHead(icon, tone, title){
+  return `<div class="card-head"><span class="card-icon ${tone}">${ICONS[icon]}</span><span class="card-title">${title}</span></div>`;
+}
+function aiTag(label){
+  return `<div class="ai-tag">${ICONS.spark}${label}</div>`;
+}
+
 // ---------- tab switching ----------
 const tabBtns = document.querySelectorAll('.tab-btn');
 const panels = { case: document.getElementById('panel-case'), resume: document.getElementById('panel-resume'), question: document.getElementById('panel-question') };
@@ -405,7 +549,7 @@ const CASE_DATA = {
     ]
   },
   nonsales: {
-    label: "비영업직군",
+    label: "지원직군",
     q: "당신은 영업부서를 지원하는 담당자입니다.\n출근 후 오전에는 10개 부서의 데이터를 취합하여 영업 직원에게 공유하는 것이 중요한 업무 중 하나입니다.\n다만, 취합은 수작업으로 하고 있으며 업무 시간의 20% 비중을 사용하고 있습니다.\n영업 직원은 공유된 데이터를 기반으로 판매전략을 수립합니다.\n\n취합하는 업무 프로세스는 다음과 같습니다.\n\n1. 부서별 데이터 업데이트 확인\n  - 매일 오전 google spread sheet에 부서별로 데이터가 업데이트 되었는지 확인\n  - 업데이트 미완료 시 E-mail 또는 사내 메신저를 통해 업데이트 요청\n\n2. 데이터 취합 및 검증\n  - 데이터 취합 후 검증하여 보완이 필요 시 각 부서에 확인 요청\n\n3. 보고서 작성 및 전사 직원 공유\n  - 취합된 데이터를 기반으로 보고서를 작성하여 영업 직원에게 공유\n\n앞으로 회사가 계속 성장함에 따라 담당하게 될 부서는 계속 늘어날 것으로 예상됩니다.\n이러한 상황에서 예상되는 문제를 다양하게 정의하고 이를 효율적으로 해결하기 위한 방안을 제시해 주세요.",
     signals: [
       { t:"이 상황에서 문제라고 판단한 지점은 정확히 무엇이었나요? '수작업'이라는 것 외에 어떤 기준으로 문제를 정의하셨나요?", fit:"판단기준" },
@@ -419,7 +563,10 @@ function renderFixedCase(track){
   const c = CASE_DATA[track];
   currentCase = c;
   caseOutput.innerHTML = `
-    <div class="card"><span class="k mono">${c.label} 케이스</span><p style="white-space:pre-line;">${c.q}</p></div>
+    <div class="card">
+      ${cardHead('doc','c-gold', c.label + ' 케이스')}
+      <p style="white-space:pre-line;">${c.q}</p>
+    </div>
   `;
   deepdiveOutput.innerHTML = '';
 }
@@ -517,11 +664,27 @@ document.getElementById('btn-gen-deepdive').addEventListener('click', async ()=>
   const btn = document.getElementById('btn-gen-deepdive');
   btn.disabled = true;
   showLoading(deepdiveOutput, '심층 질문을 만들고 있습니다...');
-  const system = `당신은 슈피겐코리아의 면접관입니다. 지원자가 자신의 제안에만 매몰되지 않고 오픈 마인드와 논리적 사고력을 갖췄는지 검증하는 심층 질문을 만듭니다.
+  const system = `당신은 대기업 공채 면접을 다수 진행해 온 노련한 채용 담당자입니다. 지원자가 자신의 제안에만 매몰되지 않고 오픈 마인드와 논리적 사고력을 갖췄는지 검증하는 심층 질문을 만듭니다.
 반드시 아래 세 가지 축을 모두 포함하고, 각 질문은 "예/아니오"로 끝나지 않는 열린 질문(왜/어떻게/무엇)으로 만드세요.
 1) 판단 기준 및 우선순위: 지원자가 해당 솔루션을 도출할 때 설정한 기준과 우선순위를 캐묻는 송곳 질문.
 2) 대안 사고 능력: "만약 ~한 상황이라면 어떤 대안을 고려하시겠습니까?" 형태의 질문으로, 제안 외 다른 방향성을 확인.
 3) 유연성 검증: 본인 아이디어에 매몰되지 않고 다른 관점을 받아들일 수 있는지 확인하는 질문.
+
+[질문 개수 원칙 - 반드시 준수]
+- criteria_question, alternative_question, flexibility_question 각 항목에는 오직 하나의 질문만 담으세요. 물음표(?)가 항목당 정확히 1개여야 합니다.
+- "그리고", "또한", "그리고 나서"처럼 두 개 이상의 질문을 한 문장에 이어 붙이지 마세요.
+- 하나의 질문 안에 "A는 무엇이고 B는 어떻게 하시겠어요?"처럼 서로 다른 소주제를 함께 묻지 마세요. 각 항목은 단일 초점만 가져야 합니다.
+- 두 가지가 동시에 궁금하더라도 더 중요한 하나만 골라 질문하고, 나머지는 과감히 버리세요. 이 기능에는 후속 질문 슬롯이 없으므로, 욕심내어 여러 개를 한 문장에 담지 마세요.
+- 세 항목은 서로 내용이 겹치거나 사실상 같은 질문을 표현만 바꿔 반복해서는 안 됩니다. 각각 독립적이고 구분되는 질문이어야 합니다.
+- 예시(금지): "이 기준을 세운 이유는 무엇이고, 다른 대안은 고려해보셨나요?" → 두 개의 질문이 섞여 있어 금지.
+- 예시(허용): "이 기준을 세운 이유는 무엇인가요?"
+
+[톤앤매너 - 반드시 준수]
+- 실제 면접장에서 사람이 입으로 묻는 것처럼 자연스럽고 간결한 존댓말로 쓰세요. 논문이나 매뉴얼처럼 딱딱하게 쓰지 마세요.
+- "~에 대해 말씀해 주시겠습니까?", "~에 대한 견해를 밝혀 주시기 바랍니다" 같은 상투적이고 기계적인 번역투 문형은 쓰지 마세요.
+- 매번 같은 문장 틀을 반복하지 말고, 실제 사람이 대화하듯 자연스럽게 어미를 변주하세요 (예: "~하셨나요?", "~라면 어떻게 하시겠어요?", "~한 이유가 궁금합니다").
+- 불필요한 수식어나 배경 설명 없이, 궁금한 핵심만 짧고 담백하게 물으세요. 한 문장은 가능한 한 60자를 넘기지 않도록 하세요.
+
 순수 JSON만 출력하세요. 설명이나 코드펜스 금지.
 스키마: {"criteria_question":"...", "alternative_question":"...", "flexibility_question":"...", "observation_note":"면접관이 답변에서 무엇을 관찰해야 하는지 1~2문장"}`;
   const user = `케이스 문제(${currentCase.label}):\n${currentCase.q}\n\n지원자의 제안: ${answer}`;
@@ -529,10 +692,13 @@ document.getElementById('btn-gen-deepdive').addEventListener('click', async ()=>
     const raw = await callClaude(system, user);
     const parsed = parseJSON(raw);
     deepdiveOutput.innerHTML = `
-      <div class="card"><span class="k mono">판단 기준 · 우선순위</span><p>${parsed.criteria_question}</p></div>
-      <div class="card"><span class="k mono">대안 사고</span><p>${parsed.alternative_question}</p></div>
-      <div class="card"><span class="k mono">유연성 검증</span><p>${parsed.flexibility_question}</p></div>
-      <div class="card"><span class="k mono">관찰 포인트</span><p>${parsed.observation_note}</p></div>
+      ${aiTag('AI 초안 질문 · 검토 후 사용하세요')}
+      <div class="result-group">
+        <div class="card">${cardHead('target','c-accent','판단 기준 · 우선순위')}<p>${parsed.criteria_question}</p></div>
+        <div class="card">${cardHead('compass','c-accent','대안 사고')}<p>${parsed.alternative_question}</p></div>
+        <div class="card">${cardHead('refresh','c-accent','유연성 검증')}<p>${parsed.flexibility_question}</p></div>
+        <div class="card">${cardHead('eye','c-gold','관찰 포인트')}<p>${parsed.observation_note}</p></div>
+      </div>
     `;
   }catch(err){ showError(deepdiveOutput, err); }
   finally{ btn.disabled = false; }
@@ -541,7 +707,7 @@ document.getElementById('btn-gen-deepdive').addEventListener('click', async ()=>
 // ---------- TAB 2: Resume review ----------
 const RESUME_EXAMPLES = {
   "영업직군": "대학 온라인 커머스 동아리에서 스마트폰 액세서리 편집숍을 운영하며, 3개월간 재고회전율을 40% 개선한 경험이 있습니다. SKU별 판매 데이터를 분석해 회전이 느린 색상 옵션을 축소하고, 신학기 시즌에 맞춰 다이어리형 케이스 발주 비중을 20%p 늘렸습니다. 그 결과 재고 보유일수가 45일에서 27일로 줄었고, 매출은 전년 대비 32% 증가했습니다. 이 경험을 통해 데이터 기반 발주 우선순위 설정이 매출로 직결된다는 것을 배웠고, 이를 슈피겐코리아의 글로벌 리테일 채널 확장에 적용하고 싶습니다.",
-  "비영업직군": "경영지원팀에서 인턴으로 일할 때, 매주 반품 데이터를 정리해 회의 자료로 넘기는 게 제 일이었습니다. 자료를 만들다 보니 유독 케이스류 파손 반품이 자꾸 눈에 띄었고, 궁금해서 한 달치 사유만 따로 모아 직접 분류해봤습니다. 절반 가까이가 포장 완충재 부족에서 나온 반품이었습니다. 이 내용을 정리해서 담당 매니저님께 보여드리고, 파손이 잦은 품목만이라도 포장 전 검수 항목을 하나 추가해보자고 제안했습니다. 한 달 뒤 다시 데이터를 뽑아보니 해당 품목의 파손 반품이 눈에 띄게 줄어 있었습니다. 주어진 자료 취합 업무 안에서도, 숫자를 그냥 넘기지 않고 한 번 더 들여다보면 바꿀 수 있는 지점이 있다는 걸 배웠습니다. 슈피겐코리아에서도 데이터를 전달만 하는 사람이 아니라, 데이터에서 원인을 먼저 찾아내는 사람이 되고 싶습니다."
+  "지원직군": "경영지원팀에서 인턴으로 일할 때, 매주 반품 데이터를 정리해 회의 자료로 넘기는 게 제 일이었습니다. 자료를 만들다 보니 유독 케이스류 파손 반품이 자꾸 눈에 띄었고, 궁금해서 한 달치 사유만 따로 모아 직접 분류해봤습니다. 절반 가까이가 포장 완충재 부족에서 나온 반품이었습니다. 이 내용을 정리해서 담당 매니저님께 보여드리고, 파손이 잦은 품목만이라도 포장 전 검수 항목을 하나 추가해보자고 제안했습니다. 한 달 뒤 다시 데이터를 뽑아보니 해당 품목의 파손 반품이 눈에 띄게 줄어 있었습니다. 주어진 자료 취합 업무 안에서도, 숫자를 그냥 넘기지 않고 한 번 더 들여다보면 바꿀 수 있는 지점이 있다는 걸 배웠습니다. 슈피겐코리아에서도 데이터를 전달만 하는 사람이 아니라, 데이터에서 원인을 먼저 찾아내는 사람이 되고 싶습니다."
 };
 document.getElementById('btn-load-example').addEventListener('click', ()=>{
   const track = getResumeTrack();
@@ -559,38 +725,70 @@ document.getElementById('btn-gen-resume').addEventListener('click', async ()=>{
   const btn = document.getElementById('btn-gen-resume');
   btn.disabled = true;
   showLoading(out, '질문을 만들고 있습니다...');
-  const system = `당신은 슈피겐코리아(글로벌 모바일 액세서리 제조·커머스 기업)의 ${track} 면접관입니다. 개발 직군 관점은 절대 사용하지 마세요.
-${track === '비영업직군' ? '비영업직군은 PM, 경영지원, 영업지원 등 실무 주도형 역할을 포괄합니다. 비영업직군을 남을 보조하는 수동적 역할로 축소해서 질문하지 마세요. 지원자가 얼마나 스스로 문제를 정의하고 주도적으로 판단·실행했는지를 검증하세요.' : ''}
-지원자의 자기소개서를 읽고 BEI(행동사건면접) 기법으로 과거 경험 기반 탐침 질문 3개를 뽑고, 각 질문마다 STAR 구조로 확장하는 후속 탐침 질문을 만드세요.
-단순 경험 나열이 아니라 당시 상황의 인과관계와 의사결정 프로세스를 검증하는 데 초점을 두세요. 모든 질문은 "예/아니오"로 끝나지 않는 열린 질문으로 만드세요.
-순수 JSON만 출력하세요.
-스키마: {"bei_questions":[{"question":"...", "based_on":"자소서의 어떤 부분에 근거했는지 1문장"}], "star_followups":[{"situation_task_probe":"왜 그 상황·과제에 놓였는지 확인하는 질문", "action_probe":"어떤 판단과 행동을 했는지 확인하는 질문"}], "verification_summary":"이 자소서에서 반드시 검증해야 할 인과관계나 의사결정 포인트 2~3문장"}
-bei_questions와 star_followups 배열은 각각 정확히 3개씩 만드세요. 순서상 star_followups[i]는 bei_questions[i]에 대응합니다.`;
+  const system = `당신은 대기업 공채 면접을 다수 진행해 온 노련한 채용 담당자입니다. 지금은 슈피겐코리아(글로벌 모바일 액세서리 제조·커머스 기업)의 ${track} 면접관 역할을 맡고 있습니다. 개발 직군 관점은 절대 사용하지 마세요.
+${track === '지원직군' ? '지원직군은 PM, 경영지원, 영업지원 등 실무 주도형 역할을 포괄합니다. 지원직군을 남을 보조하는 수동적 역할로 축소해서 질문하지 마세요. 지원자가 얼마나 스스로 문제를 정의하고 주도적으로 판단·실행했는지를 검증하세요.' : ''}
+지원자의 자기소개서를 읽고 BEI(행동사건면접) 기법으로 과거 경험 기반 메인 질문 3개를 뽑고, 각 메인 질문마다 STAR 구조(상황·과제 → 행동 → 결과)로 확장하는 후속 질문을 3개씩 만드세요.
+단순 경험 나열이 아니라 당시 상황의 인과관계와 의사결정 프로세스를 검증하는 데 초점을 두세요.
+
+[질문 개수 원칙 - 반드시 준수]
+- 메인 질문(question)과 후속 질문(followups의 각 원소)은 모두 오직 하나의 질문만 담으세요. 물음표(?)가 항목당 정확히 1개여야 합니다.
+- "그리고", "또한"처럼 두 개 이상의 질문을 한 문장에 이어 붙이지 마세요.
+- 메인 질문에 "~와 함께", "~를, 그 사례도" 같은 구문으로 근거·사례·결과를 같이 묻지 마세요. 특성(강점, 판단, 선택 등)을 확인하는 것은 메인 질문의 몫이고, 그 근거나 사례, 결과를 확인하는 것은 followups의 몫입니다. 두 역할을 절대 섞지 마세요.
+- 예시(금지): "지원 직무와 가장 관련 있는 본인의 강점을, 그 강점이 성과로 이어졌던 구체적인 사례와 함께 말씀해 주세요." → 강점을 묻는 질문과 사례를 묻는 질문이 한 문장에 섞여 있어 금지.
+- 예시(허용, 메인): "지원 직무와 가장 관련 있다고 생각하는 본인의 강점은 무엇인가요?" → 이어서 followups에서 "그 강점이 드러난 상황은 무엇이었나요?", "그때 구체적으로 어떻게 행동하셨나요?", "결과적으로 무엇이 달라졌나요?"처럼 나눠서 물으세요.
+- 같은 메인 질문 아래 후속 질문 3개는 각각 상황·과제 / 행동 / 결과라는 서로 다른 국면을 검증해야 하며 내용이 겹쳐서는 안 됩니다.
+- 메인 질문 3개끼리도 서로 다른 경험이나 역량을 검증해야 하며, 표현만 바꿔 같은 내용을 반복해서는 안 됩니다.
+- 모든 질문은 "예/아니오"로 끝나지 않는 열린 질문(왜/어떻게/무엇)으로 만드세요.
+
+[톤앤매너 - 반드시 준수]
+- 실제 면접장에서 사람이 입으로 묻는 것처럼 자연스럽고 간결한 존댓말로 쓰세요. 논문이나 매뉴얼처럼 딱딱하게 쓰지 마세요.
+- "~에 대해 말씀해 주시겠습니까?", "~에 대한 견해를 밝혀 주시기 바랍니다" 같은 상투적이고 기계적인 번역투 문형은 쓰지 마세요.
+- 세 개의 메인 질문과 아홉 개의 후속 질문이 전부 같은 틀로 반복되지 않도록, 실제 사람이 대화하듯 어미를 자연스럽게 변주하세요 (예: "~하셨나요?", "~라면 어떻게 하시겠어요?", "~한 이유가 궁금합니다").
+- 불필요한 수식어나 배경 설명 없이 핵심만 짧고 담백하게 물으세요. 한 문장은 가능한 한 55자를 넘기지 않도록 하세요.
+
+순수 JSON만 출력하세요. 설명이나 코드펜스 금지.
+스키마: {"bei_questions":[{"question":"...", "based_on":"자소서의 어떤 부분에 근거했는지 1문장", "followups":["상황·과제를 확인하는 질문 1개","행동을 확인하는 질문 1개","결과·배움을 확인하는 질문 1개"]}], "verification_summary":"이 자소서에서 반드시 검증해야 할 인과관계나 의사결정 포인트 2~3문장"}
+bei_questions 배열은 정확히 3개, 각 항목의 followups 배열도 정확히 3개로 만드세요.`;
   const user = `자기소개서:\n${text}`;
   try{
     const raw = await callClaude(system, user);
     const parsed = parseJSON(raw);
-    let html = '';
+    const followupLabels = ['상황·과제', '행동', '결과'];
+    let html = aiTag('AI 초안 질문 · 클릭해서 후속 질문 확인') + '<div class="result-group acc-group">';
     parsed.bei_questions.forEach((q, i)=>{
-      const star = parsed.star_followups[i] || {};
+      const followups = q.followups || [];
       html += `
-        <div class="card">
-          <span class="k mono">BEI Q${i+1}</span>
-          <p>${q.question}</p>
-          <p style="margin-top:8px;font-size:12.5px;color:var(--muted);">근거: ${q.based_on}</p>
-        </div>
-        <div class="card" style="margin-left:14px;border-left:3px solid var(--accent-soft);">
-          <span class="k mono">STAR 확장 · S/T</span>
-          <p>${star.situation_task_probe || ''}</p>
-        </div>
-        <div class="card" style="margin-left:14px;border-left:3px solid var(--accent-soft);">
-          <span class="k mono">STAR 확장 · A</span>
-          <p>${star.action_probe || ''}</p>
+        <div class="acc-item" data-i="${i}">
+          <button class="acc-header" type="button" aria-expanded="false">
+            <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+            <span class="num-badge">${i+1}</span>
+            <span class="acc-main-q">
+              <p>${q.question}</p>
+              <span class="acc-basis">${ICONS.doc}근거: ${q.based_on}</span>
+            </span>
+          </button>
+          <div class="acc-body-wrap">
+            <div class="acc-body">
+              ${followups.map((f,j)=>`
+                <div class="acc-followup">
+                  <span class="fu-num mono">${followupLabels[j] || ('후속 ' + (j+1))}</span>
+                  <p>${f}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
         </div>
       `;
     });
-    html += `<div class="card"><span class="k mono">검증 포인트</span><p>${parsed.verification_summary}</p></div>`;
+    html += `</div><div class="card" style="margin-top:14px;">${cardHead('check','c-good','검증 포인트')}<p>${parsed.verification_summary}</p></div>`;
     out.innerHTML = html;
+    out.querySelectorAll('.acc-header').forEach(h=>{
+      h.addEventListener('click', ()=>{
+        const item = h.closest('.acc-item');
+        const open = item.classList.toggle('open');
+        h.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    });
   }catch(err){ showError(out, err); }
   finally{ btn.disabled = false; }
 });
@@ -599,32 +797,32 @@ bei_questions와 star_followups 배열은 각각 정확히 3개씩 만드세요.
 const PATTERNS = [
   { re:/고향|출신지|본적/g, type:"차별·부적절",
     note:"출신 지역은 평가 대상이 아닙니다.",
-    fix:"근무 가능 지역이나 출퇴근에 제약이 있으신가요?" },
+    fix:"출퇴근이 어려운 지역 제약이 있으신가요?" },
   { re:/부모|아버지|어머니|집안|가정환경|형제|자매/g, type:"차별·부적절",
     note:"가족·집안 배경은 평가 대상이 아닙니다.",
-    fix:"이 일을 길게 이어가는 데 미리 알아두어야 할 제약이 있으신가요?" },
+    fix:"장기근속을 어렵게 할 만한 개인적인 제약이 있으신가요?" },
   { re:/결혼|임신|출산|남자친구|여자친구|애인/g, type:"차별·부적절",
     note:"결혼·임신·출산·연애 여부는 묻지 않습니다.",
-    fix:"이 직무를 장기적으로 이어갈 의향이 있으신가요? 근무 조건 중 미리 맞춰야 할 부분이 있다면 말씀해 주세요." },
+    fix:"입사 이후 근무 조건과 관련해 미리 조율이 필요한 부분이 있으신가요?" },
   { re:/나이가\s*어리|나이가\s*많|몇\s*살/g, type:"차별·부적절",
     note:"나이는 평가 대상이 아닙니다.",
-    fix:"이 직무에 필요한 경험을 어디까지 해보셨는지 사례로 말씀해 주세요." },
+    fix:"이 직무에 필요한 경험은 어디까지 쌓아 보셨나요?" },
   { re:/잘못\s*대답|잘\s*모르(는|시는)|틀렸|아닌데/g, type:"무례·갑질",
     note:"면박·훈계 표현이 섞여 있습니다. 답을 끌어내려면 추궁이 아니라 확인 질문이 낫습니다.",
-    fix:"제가 정확히 이해했는지 확인하고 싶습니다. 그렇게 판단하신 근거를 조금 더 설명해 주시겠어요?" },
+    fix:"방금 답변에서 판단하신 근거를 조금 더 짚어 주시겠어요?" },
   { re:/mbti|혈액형|별자리/gi, type:"변별력 낮음",
     note:"성향 검사 결과는 직무 변별력이 낮습니다.",
-    fix:"본인의 성향이 실제 업무에서 어떻게 드러났는지 사례로 말씀해 주세요." }
+    fix:"본인의 성향이 실제 업무에서 드러났던 순간이 있다면 말씀해 주세요." }
 ];
 const THEMES = [
-  { re:/갈등|의견|동료|부딪|마찰/, fix:"동료와 의견이 부딪혔던 상황에서, 본인이 실제로 어떻게 풀었고 결과가 어땠는지 사례로 말씀해 주세요." },
-  { re:/강점|장점|역량|잘하는/, fix:"지원 직무에 도움이 될 강점을, 그 강점이 성과로 이어졌던 최근 사례와 함께 말씀해 주세요." },
-  { re:/야근|마감|바쁠|업무량|우선순위/, fix:"업무가 한꺼번에 몰렸을 때 무엇을 먼저 처리했고 어떻게 행동했는지 구체적 사례로 말씀해 주세요." },
-  { re:/실패|약점|단점|어려|아쉬/, fix:"기대만큼 안 풀렸던 일과, 그 경험에서 이후 무엇을 바꾸셨는지 말씀해 주세요." }
+  { re:/갈등|의견|동료|부딪|마찰/, fix:"동료와 의견이 부딪혔을 때, 본인은 어떻게 풀어가셨나요?" },
+  { re:/강점|장점|역량|잘하는/, fix:"지원 직무에 가장 도움이 될 만한 본인의 강점은 무엇인가요?" },
+  { re:/야근|마감|바쁠|업무량|우선순위/, fix:"업무가 한꺼번에 몰렸을 때, 무엇을 가장 먼저 처리하셨나요?" },
+  { re:/실패|약점|단점|어려|아쉬/, fix:"기대만큼 결과가 나오지 않았던 경험이 있다면 말씀해 주세요." }
 ];
 const BEST_EXAMPLES = [
-  "최근 1~2년 안에 동료와 의견이 강하게 부딪혔던 상황이 있었나요? 그때 본인이 실제로 어떻게 풀었고, 결과가 어땠는지 말씀해 주세요.",
-  "지원하신 직무와 가장 관련 있는 본인의 강점을, 그 강점이 성과로 이어졌던 구체적인 사례와 함께 말씀해 주세요."
+  "최근 1~2년 사이, 동료와 의견이 강하게 부딪혔을 때 본인은 어떻게 풀어가셨나요?",
+  "지원하신 직무와 가장 관련 있다고 생각하시는 본인의 강점은 무엇인가요?"
 ];
 const WORST_EXAMPLES = [
   "고향이 어디세요? 부모님은 무슨 일 하세요?",
@@ -668,7 +866,7 @@ function analyzeQuestion(text){
     if(chosen){ corrected = chosen.fix; }
     else {
       const th = THEMES.find(x=>x.re.test(text));
-      corrected = th ? th.fix : '직무와 관련해 본인이 직접 해낸 일을 하나 골라, 어떤 상황에서 무엇을 했고 결과가 어땠는지 사례로 말씀해 주세요.';
+      corrected = th ? th.fix : '직무와 관련해 본인이 직접 해낸 일 중 가장 기억에 남는 경험을 말씀해 주세요.';
     }
   }
   return { segments: segs.length ? segs : [{text}], issues, corrected, clean, empty:false };
@@ -688,13 +886,13 @@ function renderQuestionReview(){
     return;
   }
   qStatus.innerHTML = r.clean
-    ? '<span class="badge good">통과</span>'
-    : `<span class="badge warn">교정 필요 · ${r.issues.length}건</span>`;
+    ? `<span class="badge good">${ICONS.check}통과</span>`
+    : `<span class="badge warn">${ICONS.alert}교정 필요 · ${r.issues.length}건</span>`;
   qLeft.innerHTML = `<p style="margin:0;font-size:14.5px;">${r.segments.map(s=>
     s.issue ? `<mark style="background:var(--warn-soft);color:var(--warn);border-radius:4px;padding:0 2px;font-weight:600;" title="${esc(s.issue)}">${esc(s.text)}</mark>` : esc(s.text)
   ).join('')}</p>`;
   qRight.innerHTML = r.clean
-    ? '<p style="margin:0;font-size:14.5px;"><span class="badge good">✓</span> 수정할 부분이 없습니다. 그대로 사용하셔도 좋습니다.</p>'
+    ? `<p style="margin:0;font-size:14.5px;display:flex;align-items:center;gap:6px;"><span class="badge good">${ICONS.check}</span> 수정할 부분이 없습니다. 그대로 사용하셔도 좋습니다.</p>`
     : `<p style="margin:0;font-size:14.5px;">${esc(r.corrected)}</p>`;
 }
 qInput.addEventListener('input', renderQuestionReview);
@@ -715,13 +913,13 @@ document.getElementById('btn-worst').addEventListener('click', ()=>{
   if(!SR){
     micBtn.disabled = true;
     micBtn.title = '이 브라우저는 음성 인식을 지원하지 않습니다 (Chrome 권장)';
-    micBtn.textContent = '🎙 음성 미지원';
+    micBtn.innerHTML = ICONS.mic + '음성 미지원';
     return;
   }
   let recog = null, listening = false;
   function setState(on){
     listening = on;
-    micBtn.textContent = on ? '🔴 듣는 중…' : '🎙 음성 입력';
+    micBtn.innerHTML = on ? '<span class="rec-dot"></span>듣는 중…' : (ICONS.mic + '음성 입력');
   }
   micBtn.addEventListener('click', ()=>{
     if(listening){ if(recog) recog.stop(); return; }
