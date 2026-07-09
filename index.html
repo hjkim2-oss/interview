@@ -653,22 +653,28 @@ async function callClaude(systemPrompt, userPrompt, maxTokens){
     })
   });
   if(!response.ok){ throw new Error("API 요청 실패 (" + response.status + ")"); }
+  const proxyVersion = response.headers.get('x-proxy-version');
+  const proxyAppliedMaxTokens = response.headers.get('x-proxy-applied-max-tokens');
   const data = await response.json();
-  // 진단용: 실제로 몇 토큰까지 썼는지, 어떤 이유로 응답이 끝났는지 콘솔에 남깁니다.
+  // 진단용: 실제로 몇 토큰까지 썼는지, 어떤 이유로 응답이 끝났는지, 프록시가 어떤 버전인지 콘솔에 남깁니다.
   // (개발자 도구 콘솔(F12)에서 "callClaude 응답 진단" 로그를 확인하면 원인 파악에 도움이 됩니다.)
   console.log('callClaude 응답 진단', {
     요청한_max_tokens: requestedMaxTokens,
     stop_reason: data.stop_reason,
-    usage: data.usage
+    usage: data.usage,
+    '프록시_버전(없으면_구버전_배포중)': proxyVersion || '(헤더 없음 = 구버전 프록시가 아직 배포되어 있음)',
+    프록시가_적용한_max_tokens: proxyAppliedMaxTokens
   });
   const text = data.content.filter(b=>b.type==="text").map(b=>b.text).join("\n");
   if(data.stop_reason === 'max_tokens'){
     const usedTokens = data.usage && data.usage.output_tokens;
+    const proxyHint = !proxyVersion
+      ? '이 응답에는 새 프록시 버전 헤더가 없습니다 — Vercel에 새 proxy.js가 아직 배포되지 않았을 가능성이 매우 높습니다. Vercel 대시보드에서 최신 커밋이 배포됐는지, Production 배포가 맞는지 확인해 주세요.'
+      : (proxyAppliedMaxTokens && Number(proxyAppliedMaxTokens) < requestedMaxTokens
+          ? `프록시는 배포됐지만 실제로 적용한 max_tokens(${proxyAppliedMaxTokens})가 요청값(${requestedMaxTokens})보다 작습니다.`
+          : '다시 시도해 주세요.');
     throw new Error(
-      `응답이 길이 제한으로 잘렸습니다 (요청한 max_tokens=${requestedMaxTokens}${usedTokens ? `, 실제 출력=${usedTokens}토큰` : ''}). ` +
-      (usedTokens && usedTokens < requestedMaxTokens
-        ? '실제 출력이 요청한 한도보다 작은데도 잘렸다면, 중간 프록시 서버가 max_tokens 값을 자체적으로 낮게 고정하고 있을 가능성이 높습니다. 프록시 코드를 확인해 주세요.'
-        : '다시 시도해 주세요.')
+      `응답이 길이 제한으로 잘렸습니다 (요청한 max_tokens=${requestedMaxTokens}${usedTokens ? `, 실제 출력=${usedTokens}토큰` : ''}). ${proxyHint}`
     );
   }
   return text;
