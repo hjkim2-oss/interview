@@ -646,7 +646,7 @@ async function callClaude(systemPrompt, userPrompt, maxTokens){
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       model: "claude-sonnet-4-6",
-      max_tokens: maxTokens || 1600,
+      max_tokens: maxTokens || 4000,
       system: systemPrompt,
       messages: [{ role: "user", content: userPrompt }]
     })
@@ -791,7 +791,7 @@ document.getElementById('btn-gen-deepdive').addEventListener('click', async ()=>
 스키마: {"reason_question":"...", "reason_evidence":"지원자 제안 원문에서 그대로 발췌한 구절", "priority_question":"...", "priority_evidence":"지원자 제안 원문에서 그대로 발췌한 구절", "alternative_question":"...", "alternative_evidence":"지원자 제안 원문에서 그대로 발췌한 구절", "observation_note":"면접관이 답변에서 무엇을 관찰해야 하는지 1~2문장"}`;
   const user = `케이스 문제(${currentCase.label}):\n${currentCase.q}\n\n지원자의 제안: ${answer}`;
   try{
-    const raw = await callClaude(system, user);
+    const raw = await callClaude(system, user, 4000);
     const parsed = parseJSON(raw);
     const evidenceList = [
       { text: parsed.reason_evidence, i: 0 },
@@ -866,7 +866,7 @@ ${track === '지원직군' ? '지원직군은 PM, 경영지원, 영업지원 등
 bei_questions 배열은 정확히 3개, 각 항목의 followups 배열도 정확히 3개로 만드세요.`;
   const user = `자기소개서:\n${text}`;
   try{
-    const raw = await callClaude(system, user, 2600);
+    const raw = await callClaude(system, user, 4000);
     const parsed = parseJSON(raw);
     const followupLabels = ['상황·과제', '행동', '결과'];
     const evidenceList = parsed.bei_questions.map((q, i) => ({ text: q.based_on, i }));
